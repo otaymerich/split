@@ -1,0 +1,81 @@
+{%extends "base.html"%}
+
+{%block main%}
+
+<div class="fixed-top mt-5">
+  <div class="d-flex justify-content-end mt-5 me-5">
+    <button type="button" class="btn btn-warning rounded-circle" onclick="show_invoices_form()">
+      <svg id = "svg_add" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-receipt" viewBox="0 0 16 16">
+        <path d="M1.92.506a.5.5 0 0 1 .434.14L3 1.293l.646-.647a.5.5 0 0 1 .708 0L5 1.293l.646-.647a.5.5 0 0 1 .708 0L7 1.293l.646-.647a.5.5 0 0 1 .708 0L9 1.293l.646-.647a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .708 0l.646.647.646-.647a.5.5 0 0 1 .801.13l.5 1A.5.5 0 0 1 15 2v12a.5.5 0 0 1-.053.224l-.5 1a.5.5 0 0 1-.8.13L13 14.707l-.646.647a.5.5 0 0 1-.708 0L11 14.707l-.646.647a.5.5 0 0 1-.708 0L9 14.707l-.646.647a.5.5 0 0 1-.708 0L7 14.707l-.646.647a.5.5 0 0 1-.708 0L5 14.707l-.646.647a.5.5 0 0 1-.708 0L3 14.707l-.646.647a.5.5 0 0 1-.801-.13l-.5-1A.5.5 0 0 1 1 14V2a.5.5 0 0 1 .053-.224l.5-1a.5.5 0 0 1 .367-.27zm.217 1.338L2 2.118v11.764l.137.274.51-.51a.5.5 0 0 1 .707 0l.646.647.646-.646a.5.5 0 0 1 .708 0l.646.646.646-.646a.5.5 0 0 1 .708 0l.646.646.646-.646a.5.5 0 0 1 .708 0l.646.646.646-.646a.5.5 0 0 1 .708 0l.646.646.646-.646a.5.5 0 0 1 .708 0l.509.509.137-.274V2.118l-.137-.274-.51.51a.5.5 0 0 1-.707 0L12 1.707l-.646.647a.5.5 0 0 1-.708 0L10 1.707l-.646.647a.5.5 0 0 1-.708 0L8 1.707l-.646.647a.5.5 0 0 1-.708 0L6 1.707l-.646.647a.5.5 0 0 1-.708 0L4 1.707l-.646.647a.5.5 0 0 1-.708 0l-.509-.51z"/>
+        <path d="M3 4.5a.5.5 0 0 1 .5-.5h6a.5.5 0 1 1 0 1h-6a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 1 1 0 1h-6a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 1 1 0 1h-6a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h6a.5.5 0 0 1 0 1h-6a.5.5 0 0 1-.5-.5zm8-6a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5zm0 2a.5.5 0 0 1 .5-.5h1a.5.5 0 0 1 0 1h-1a.5.5 0 0 1-.5-.5z"/>
+      </svg>
+
+      <svg style="display: none;" id="svg_invoice" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-table" viewBox="0 0 16 16">
+        <path d="M0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2V2zm15 2h-4v3h4V4zm0 4h-4v3h4V8zm0 4h-4v3h3a1 1 0 0 0 1-1v-2zm-5 3v-3H6v3h4zm-5 0v-3H1v2a1 1 0 0 0 1 1h3zm-4-4h4V8H1v3zm0-4h4V4H1v3zm5-3v3h4V4H6zm4 4H6v3h4V8z"/>
+      </svg>
+    </button>
+  </div>
+</div>
+
+{%include "table.html"%}
+
+<form id="form" style="display: none;" class="text-light" method="POST">
+  <div class="mb-2">
+    <label for="exampleInputEmail1" class="form-label">Service</label>
+    <!-- <input type="text" class="form-control" name="service" aria-describedby="serviceHelp" required> -->
+    <select name="service" id="" class="form-select">
+      <option value="gas">Gas</option>
+      <option value="water">Water</option>
+      <option value="electricity">Electricity</option>
+      <option value="other">Other</option>
+
+
+    </select>
+  </div>
+  <div class="mb-2">
+    <label for="exampleInputEmail1" class="form-label">Description</label>
+    <input type="text" class="form-control" name="comment" aria-describedby="commentHelp">
+  </div>
+  <div class="mb-2">
+    <label for="exampleInputEmail1" class="form-label">Total</label>
+    <input type="number" step="0.01" class="form-control" name="total" aria-describedby="totalHelp" required>
+  </div>
+  <div class="mb-2">
+    <label for="exampleInputEmail1" class="form-label">Start date</label>
+    <input type="date" class="form-control" name="start_date" aria-describedby="dateHelp" required>
+  </div>
+  <div class="mb-2">
+    <label for="exampleInputEmail1" class="form-label">End date</label>
+    <input type="date" class="form-control" name="end_date" aria-describedby="dateHelp" required>
+  </div>
+  <button type="submit" class="btn btn-primary mt-3">Add invoice!</button>
+
+</form>
+
+<script>
+  const checkbox = document.querySelector("#is_paid");
+  checkbox.checked = false;
+
+  function show_invoices_form() {
+    console.log("invoice_agregado!");
+    const table = document.querySelector("#table");
+    const form = document.querySelector("#form");
+    const svg_add = document.querySelector("#svg_add")
+    const svg_invoice = document.querySelector("#svg_invoice")
+    if (svg_invoice.style.display=="none") {
+      svg_add.style.display = "none";
+      svg_invoice.style.display = "block";
+      table.style.display = "none";
+      form.style.display = "block";
+    }
+    else {
+      svg_add.style.display = "block";
+      svg_invoice.style.display = "none";
+      table.style.display = "table";
+      form.style.display = "none";
+    };
+  };
+  
+</script>
+
+{%endblock%}

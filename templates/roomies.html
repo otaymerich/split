@@ -1,0 +1,102 @@
+{%extends "base.html"%}
+
+{%block main%}
+
+<div class="fixed-top mt-5">
+  <div class="d-flex justify-content-end mt-5 me-5">
+    <button type="button" class="btn btn-success rounded-circle" onclick="show_roomies_form()">
+      <svg id="svg_add" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-person-plus-fill" viewBox="0 0 16 16">
+        <path d="M1 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z"></path>
+        <path fill-rule="evenodd" d="M13.5 5a.5.5 0 0 1 .5.5V7h1.5a.5.5 0 0 1 0 1H14v1.5a.5.5 0 0 1-1 0V8h-1.5a.5.5 0 0 1 0-1H13V5.5a.5.5 0 0 1 .5-.5z"></path>
+      </svg>
+
+      <svg style="display: none;" id="svg_people" xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-person-plus-fill" viewBox="0 0 16 16">
+        <path d="M6 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6zm-5 6s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H1zM11 3.5a.5.5 0 0 1 .5-.5h4a.5.5 0 0 1 0 1h-4a.5.5 0 0 1-.5-.5zm.5 2.5a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1h-4zm2 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2zm0 3a.5.5 0 0 0 0 1h2a.5.5 0 0 0 0-1h-2z"></path>
+      </svg>
+    </button>
+  </div>
+</div>
+
+{%include "table.html"%}
+
+<form id="form" style="display: none;" class="text-light" method="POST">
+  <div class="mb-2">
+    <label for="exampleInputEmail1" class="form-label">Name</label>
+    <input type="text" class="form-control" name="name" aria-describedby="textHelp" required>
+  </div>
+  <div class="mb-2">
+    <label for="exampleInputEmail1" class="form-label">Email address</label>
+    <input type="email" class="form-control" name="email" aria-describedby="emailHelp" required>
+  </div>
+  <div class="mb-2">
+    <label for="exampleInputEmail1" class="form-label">CheckIn</label>
+    <input type="date" class="form-control" name="checkin" aria-describedby="dateHelp" required>
+  </div>
+  <div class="mb-2">
+    <input type="checkbox" class="form-check-input" id="is_alive" aria-describedby="dateHelp" onclick="show_checkout()">
+    <label for="exampleInputEmail1" class="form-check-label">Is gone?</label>
+  </div>
+  <div class="mb-3" id="div_checkout" style="display: none;">
+    <label for="exampleInputEmail1" class="form-label">CheckOut</label>
+    <input type="date" class="form-control" name="checkout" aria-describedby="dateHelp">
+  </div>
+  <button type="submit" class="btn btn-primary">Add!</button>
+
+</form>
+
+<script>
+  const checkbox = document.querySelector("#is_alive");
+  checkbox.checked = false;
+
+  function show_roomies_form() {
+    console.log("roomie_agregado!");
+    const table = document.querySelector("#table");
+    const form = document.querySelector("#form");
+    const svg_add = document.querySelector("#svg_add")
+    const svg_people = document.querySelector("#svg_people")
+    if (svg_people.style.display=="none") {
+      svg_add.style.display = "none";
+      svg_people.style.display = "block";
+      table.style.display = "none";
+      form.style.display = "block";
+    }
+    else {
+      svg_add.style.display = "block";
+      svg_people.style.display = "none";
+      table.style.display = "table";
+      form.style.display = "none";
+    };
+  };
+
+  function show_checkout() {
+    console.log("is_alive");
+    const checkbox = document.querySelector("#is_alive");
+    const div_checkout = document.querySelector("#div_checkout");
+    const i_checkout = document.querySelector("#checkout")
+    if (checkbox.checked) {
+      div_checkout.style.display = "block";
+      i_checkout.required = true;
+    }
+    else {
+      div_checkout.style.display = "none";
+      i_checkout.required = false;
+    };
+  };
+
+  function change_debt_red() {
+    const debts = document.querySelectorAll(".table_debt")
+    // for (th of debts) {
+    //   console.log(th)
+    //   th.className = "text-danger"
+    // };
+    debts.forEach((debt) => {
+      if (debt.innerHTML > 0) {
+        debt.className = "text-danger";}
+    });
+  };
+
+  change_debt_red();
+
+</script>
+
+{%endblock%}

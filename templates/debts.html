@@ -1,0 +1,22 @@
+{%extends "base.html"%}
+
+{%block main%}
+{%if elements%}
+<div style="width: 75%;">
+{%include "table.html"%}
+</div>
+{%else%}
+<p>No debts</p>
+{%endif%}
+{%endblock%}
+
+<script>
+    const buttons = document.querySelectorAll(".table_button");
+    buttons.forEach((button) => {
+        button.href = "javascript:;";
+        button.addEventListener("click", () => {
+            const URL = document.URL;
+            fetch(URL, {"method": "POST"}).then((res) => res.json()).then((data) => console.log(data));
+        })
+    });
+</script>

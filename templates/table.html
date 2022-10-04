@@ -1,0 +1,57 @@
+<table class="table text-light" style="width: 80%;" id="table">
+    {%if elements%}
+    <thead class="table-dark">
+      <tr>
+      {%for e in elements[0].keys()%}
+        {%if e == "id"%}
+        <th scope="col">.</th>
+        {%else%}
+        <th scope="col">{{e}}</th>
+        {%endif%}
+      {%endfor%}
+      </tr>
+    </thead>
+    <tbody id="tbody" class="table-group-divider">
+      {%for e in elements%}
+      <tr>
+        {%for k, field in e.items()%}
+        <td scope="row" class="table_{{k}}">{{field}}</td>
+        {%endfor%}
+      </tr>
+      {%endfor%}
+    </tbody>
+    {%endif%}
+</table>
+
+
+<script>
+
+function button_id() {
+  const tbody = document.querySelector("#tbody");
+  let elements = Array(...tbody.children);
+  elements.forEach((tr) => {
+    let id = tr.children[tr.children.length - 1];
+    let url = document.URL.split("/")[document.URL.split("/").length - 1];
+
+    id.innerHTML = `<a class="btn btn-primary table_button" href="/${url}/${id.innerText}">{{button_text}}</a>`
+  });
+  };
+
+function button_id_2() {
+    const buttons = document.querySelectorAll(".table_id");
+    const is_paids = document.querySelectorAll(".table_is_paid")
+    buttons.forEach((button, i) => {
+      let url = document.URL.split("/")[document.URL.split("/").length - 1];
+      button.innerHTML = `<form method="POST" action="/${url}/${button.innerText}"><button class="btn btn-primary table_button" >{{button_text}}</button></form>`
+      if (is_paids.length>0) {
+        if (is_paids[i].innerText == "True") {
+          button.innerHTML = `<svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-check text-success" viewBox="0 0 16 16">
+          <path d="M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z"/>
+          </svg>`
+        };
+      }}
+    )};
+
+button_id_2()
+
+</script>
